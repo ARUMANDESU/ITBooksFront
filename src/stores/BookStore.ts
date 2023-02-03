@@ -7,7 +7,7 @@ import {
 } from "mobx";
 import axios from "axios";
 import { IBook, url } from "../models/types";
-import book from "../components/Book";
+import book from "../components/BookHomeComp";
 configure({ enforceActions: "observed" });
 class BookStore {
     books: IBook[] = [];

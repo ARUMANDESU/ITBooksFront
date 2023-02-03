@@ -50,6 +50,9 @@ export class UserStore {
             return res.data.successful;
         });
     }
+    logout() {
+        this.removeUser();
+    }
 }
 
 const hydrate = create({

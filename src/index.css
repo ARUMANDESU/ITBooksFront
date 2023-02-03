@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.suggestion{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1400;
+  margin: 3.35% auto;
+  padding: 35px 80px;
+  background-color: rgba(0,0,0,.6);
+  max-width: 760px;
+  -webkit-animation: fade .2s ease;
+  min-height: calc(100vh);
+  overflow-y: auto;
+
+}
+.suggestion h6{
+  color: azure;
+}
