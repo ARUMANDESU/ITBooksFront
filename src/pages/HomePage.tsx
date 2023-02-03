@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import BookStore from "../stores/BookStore";
 import Book from "../components/Book";
+import { Link } from "react-router-dom";
 
 const HomePage = observer(() => {
     const bookstore = BookStore;
@@ -13,7 +14,9 @@ const HomePage = observer(() => {
     return (
         <div>
             {bookstore.books.map((book) => (
-                <Book key={book._id} image={book.image} title={book.title} />
+                <Link to={`/book/${book._id}`} key={book._id}>
+                    <Book image={book.image} title={book.title} />
+                </Link>
             ))}
         </div>
     );
