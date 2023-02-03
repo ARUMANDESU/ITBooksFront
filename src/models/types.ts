@@ -1,6 +1,7 @@
 export interface IUserStore {
     id: number;
     email: string;
+    roles: String[];
     username: string;
     loggedIn: boolean;
 }
