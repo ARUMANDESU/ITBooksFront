@@ -7,7 +7,7 @@ const BookPage = () => {
     const { id } = useParams();
     useEffect(() => {
         bookStore.getOneBookByID(id!);
-    }, []);
+    }, [id]);
     return (
         <div>
             <img src={bookStore.image} alt="book cover" />
