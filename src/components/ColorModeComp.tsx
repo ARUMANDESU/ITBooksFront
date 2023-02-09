@@ -10,15 +10,15 @@ const ColorModeComp = () => {
     }, []);
 
     const handleBtnClick = () => {
-        if (colorMode === "white") {
+        if (colorMode === "light") {
             setColorMode("dark");
             localStorage.setItem("chakra-ui-color-mode", "dark");
             window.location.reload();
             return;
         }
         if (colorMode === "dark") {
-            setColorMode("white");
-            localStorage.setItem("chakra-ui-color-mode", "white");
+            setColorMode("light");
+            localStorage.setItem("chakra-ui-color-mode", "light");
         }
         window.location.reload();
         return;
