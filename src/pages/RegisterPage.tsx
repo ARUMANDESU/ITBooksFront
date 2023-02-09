@@ -1,115 +1,102 @@
 import React from "react";
 import { userStore } from "../stores/UserStore";
-import { observer } from "mobx-react";
 import {
-    Avatar,
     Box,
     Button,
-    Checkbox,
-    Container,
-    createTheme,
-    CssBaseline,
-    FormControlLabel,
-    Grid,
-    TextField,
-    ThemeProvider,
-    Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import { LockOutlined } from "@mui/icons-material";
+    Flex,
+    FormControl,
+    FormLabel,
+    Heading,
+    Input,
+    Link,
+    Stack,
+    useColorModeValue,
+} from "@chakra-ui/react";
+import { Link as ReachLink } from "react-router-dom";
 
 const RegisterPage = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+
         await userStore.register({
             username: data.get("username") as string,
             email: data.get("email") as string,
             password: data.get("password") as string,
         });
-
         // eslint-disable-next-line no-restricted-globals
         location.assign("/");
     };
     return (
         <div>
-            <ThemeProvider theme={createTheme()}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                            <LockOutlined />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign up
-                        </Typography>
+            <form onSubmit={handleSubmit}>
+                <Flex
+                    minH={"100vh"}
+                    align={"center"}
+                    justify={"center"}
+                    bg={useColorModeValue("gray.150", "gray.800")}
+                >
+                    <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+                        <Stack align={"center"}>
+                            <Heading fontSize={"4xl"}>
+                                {"  "}Create you account{"  "}
+                            </Heading>
+                        </Stack>
                         <Box
-                            component="form"
-                            noValidate
-                            onSubmit={handleSubmit}
-                            sx={{ mt: 3 }}
+                            rounded={"lg"}
+                            bg={useColorModeValue("gray.300", "gray.700")}
+                            boxShadow={"lg"}
+                            p={8}
+                            m={8}
                         >
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        label="Email"
-                                        name="email"
-                                        autoComplete="email"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="username"
-                                        label="Username"
-                                        name="username"
-                                        autoComplete="username"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        name="password"
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                        autoComplete="new-password"
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign Up
-                            </Button>
-                            <Grid container justifyContent="flex-end">
-                                <Grid item>
-                                    <Link to="/auth/login">
-                                        Already have an account? Sign in
-                                    </Link>
-                                </Grid>
-                            </Grid>
+                            <Stack spacing={4}>
+                                <FormControl id="email">
+                                    <FormLabel>Email Address</FormLabel>
+                                    <Input name="email" type="email" />
+                                </FormControl>
+                                <FormControl id="username">
+                                    <FormLabel>Username</FormLabel>
+                                    <Input name="username" type="username" />
+                                </FormControl>
+                                <FormControl id="password">
+                                    <FormLabel>Password</FormLabel>
+                                    <Input name="password" type="password" />
+                                </FormControl>
+                                <Stack spacing={10}>
+                                    <Stack
+                                        direction={{
+                                            base: "column",
+                                            sm: "row",
+                                        }}
+                                        align={"start"}
+                                        justify={"space-between"}
+                                    >
+                                        <Link
+                                            color={"teal"}
+                                            as={ReachLink}
+                                            to="/login"
+                                        >
+                                            Already have an account ?
+                                        </Link>
+                                    </Stack>
+                                    <Button
+                                        bg={"teal"}
+                                        color={"white"}
+                                        _hover={{
+                                            bg: "blue.500",
+                                        }}
+                                        type="submit"
+                                    >
+                                        Sign up
+                                    </Button>
+                                </Stack>
+                            </Stack>
                         </Box>
-                    </Box>
-                </Container>
-            </ThemeProvider>
+                    </Stack>
+                </Flex>
+            </form>
         </div>
     );
 };
 
-export default observer(RegisterPage);
+export default RegisterPage;

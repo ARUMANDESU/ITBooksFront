@@ -7,7 +7,6 @@ import {
 } from "mobx";
 import axios from "axios";
 import { IBook, url } from "../models/types";
-import book from "../components/BookHomeComp";
 configure({ enforceActions: "observed" });
 class BookStore {
     books: IBook[] = [];
@@ -28,16 +27,29 @@ class BookStore {
         makeAutoObservable(this);
     }
 
-    async getBooks(limit: number = 50) {
-        await axios.get(`${url}/book/?limit=${limit}`).then((res) => {
-            this.books = res.data;
-        });
+    async getBooks(limit: number = 50, query: string | null = null) {
+        console.log(
+            `${process.env.REACT_APP_BACKEND_BASE_URL}/book/?limit=${limit}${
+                query != null ? `&${query}` : ""
+            }`
+        );
+        await axios
+            .get(
+                `${
+                    process.env.REACT_APP_BACKEND_BASE_URL
+                }/book/?limit=${limit}${query != null ? `&${query}` : ""}`
+            )
+            .then((res) => {
+                this.books = res.data;
+            });
     }
 
-    async getOneBookByID(id: string) {
-        await axios.get(`${url}/book/${id}`).then((res) => {
-            this.setAll(res.data);
-        });
+    async getOneBookByID(id: string | undefined) {
+        await axios
+            .get(`${process.env.REACT_APP_BACKEND_BASE_URL}/book/${id}`)
+            .then((res) => {
+                this.setAll(res.data);
+            });
     }
 
     async addBook(e: any) {
@@ -46,7 +58,10 @@ class BookStore {
             title: this.title,
             subtitle: this.subtitle,
         };
-        await axios.post(`${url}/book`, newBook);
+        await axios.post(
+            `${process.env.REACT_APP_BACKEND_BASE_URL}/book`,
+            newBook
+        );
         this.getBooks();
     }
     resetFields() {
@@ -64,7 +79,9 @@ class BookStore {
     }
 
     async editBook(id: string) {
-        const res = await axios.get(`${url}/book/${id}`);
+        const res = await axios.get(
+            `${process.env.REACT_APP_BACKEND_BASE_URL}/book/${id}`
+        );
         this.title = res.data.title;
         this.subtitle = res.data.subtitle;
         this._id = id;
@@ -77,7 +94,10 @@ class BookStore {
             title: this.title,
             subtitle: this.subtitle,
         };
-        await axios.put(`${url}/book/${this._id}`, updatedBook);
+        await axios.put(
+            `${process.env.REACT_APP_BACKEND_BASE_URL}/book/${this._id}`,
+            updatedBook
+        );
         this.getBooks();
         this.title = "";
         this.subtitle = "";
@@ -86,7 +106,9 @@ class BookStore {
     }
 
     async deleteBook(id: string) {
-        await axios.delete(`${url}/book/${id}`);
+        await axios.delete(
+            `${process.env.REACT_APP_BACKEND_BASE_URL}/book/${id}`
+        );
         this.getBooks();
     }
 

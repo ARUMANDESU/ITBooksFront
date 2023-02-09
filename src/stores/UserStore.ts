@@ -7,6 +7,7 @@ const userInitialState: IUserStore = {
     id: 0,
     email: "",
     username: "",
+    avatar_url: "",
     roles: [],
     loggedIn: false,
 };
@@ -21,11 +22,12 @@ export class UserStore {
         });
     }
 
-    setUser({ id, username, roles, email }: IUserStore) {
+    setUser({ id, username, roles, email, avatar_url }: IUserStore) {
         this.user = {
             id,
             username,
             email,
+            avatar_url,
             roles,
             loggedIn: true,
         };
@@ -39,16 +41,23 @@ export class UserStore {
         username: string;
         password: string;
     }) {
-        await axios.post(`${url}/user/register`, data).then((res) => {
-            return res.data.successful;
-        });
+        await axios
+            .post(
+                `${process.env.REACT_APP_BACKEND_BASE_URL}/user/register`,
+                data
+            )
+            .then((res) => {
+                return res.data.successful;
+            });
     }
 
     async login(data: { username: string; password: string }) {
-        await axios.post(`${url}/user/login`, data).then((res) => {
-            this.setUser(res.data);
-            return res.data.successful;
-        });
+        await axios
+            .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/user/login`, data)
+            .then((res) => {
+                this.setUser(res.data);
+                return res.data.successful;
+            });
     }
     logout() {
         this.removeUser();

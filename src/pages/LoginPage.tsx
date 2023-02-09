@@ -1,21 +1,19 @@
 import React from "react";
 import { userStore } from "../stores/UserStore";
+import { Link as ReachLink } from "react-router-dom";
 import {
-    Avatar,
     Box,
     Button,
-    Checkbox,
-    Container,
-    createTheme,
-    CssBaseline,
-    FormControlLabel,
-    Grid,
-    TextField,
-    ThemeProvider,
-    Typography,
-} from "@mui/material";
-import { LockOutlined } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+    Flex,
+    FormControl,
+    FormLabel,
+    Heading,
+    Input,
+    Link,
+    Stack,
+    Text,
+    useColorModeValue,
+} from "@chakra-ui/react";
 
 const LoginPage = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,68 +29,70 @@ const LoginPage = () => {
     };
     return (
         <div>
-            <ThemeProvider theme={createTheme()}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                            <LockOutlined />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign in
-                        </Typography>
+            <form onSubmit={handleSubmit}>
+                <Flex
+                    minH={"100vh"}
+                    align={"center"}
+                    justify={"center"}
+                    bg={useColorModeValue("gray.50", "gray.800")}
+                >
+                    <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+                        <Stack align={"center"}>
+                            <Heading fontSize={"4xl"}>
+                                Sign in to your account
+                            </Heading>
+                            <Text fontSize={"lg"} color={"gray.600"}>
+                                to enjoy our website✌️
+                            </Text>
+                        </Stack>
                         <Box
-                            component="form"
-                            onSubmit={handleSubmit}
-                            noValidate
-                            sx={{ mt: 1 }}
+                            rounded={"lg"}
+                            bg={useColorModeValue("gray.300", "gray.700")}
+                            boxShadow={"lg"}
+                            p={8}
                         >
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                name="username"
-                                autoComplete="username"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign In
-                            </Button>
-                            <Grid container>
-                                <Grid item>
-                                    <Link to="/auth/register">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
+                            <Stack spacing={4}>
+                                <FormControl id="username">
+                                    <FormLabel>Username</FormLabel>
+                                    <Input name="username" type="username" />
+                                </FormControl>
+                                <FormControl id="password">
+                                    <FormLabel>Password</FormLabel>
+                                    <Input name="password" type="password" />
+                                </FormControl>
+                                <Stack spacing={10}>
+                                    <Stack
+                                        direction={{
+                                            base: "column",
+                                            sm: "row",
+                                        }}
+                                        align={"start"}
+                                        justify={"space-between"}
+                                    >
+                                        <Link
+                                            color={"teal"}
+                                            as={ReachLink}
+                                            to="/register"
+                                        >
+                                            Do not have an account ?
+                                        </Link>
+                                    </Stack>
+                                    <Button
+                                        bg={"teal"}
+                                        color={"white"}
+                                        _hover={{
+                                            bg: "blue.500",
+                                        }}
+                                        type="submit"
+                                    >
+                                        Sign in
+                                    </Button>
+                                </Stack>
+                            </Stack>
                         </Box>
-                    </Box>
-                </Container>
-            </ThemeProvider>
+                    </Stack>
+                </Flex>
+            </form>
         </div>
     );
 };

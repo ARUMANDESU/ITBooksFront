@@ -1,25 +1,25 @@
 import React from "react";
+import { Box, HStack, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { IBook } from "../models/types";
-import { Image } from "mui-image";
-import { Typography } from "@mui/material";
 
 const BookSearchComp = ({ book }: { book: IBook }) => {
     return (
-        <div style={{ display: "flex" }}>
-            <div>
-                <Image src={book.image} width={100} height={160} />
-            </div>
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                }}
-            >
-                <Typography variant="h6">{book.title}</Typography>
-                <Typography variant="h6">{book.subtitle}</Typography>
-            </div>
-        </div>
+        <Box>
+            <Link to={`/movie/${book._id}`}>
+                <HStack height="150px">
+                    <Box width="60%" height="100%">
+                        <Image
+                            src={book.image}
+                            objectFit="fill"
+                            width="100px"
+                            height="150px"
+                        />
+                    </Box>
+                    <Box width="100%">{book.title}</Box>
+                </HStack>
+            </Link>
+        </Box>
     );
 };
 
