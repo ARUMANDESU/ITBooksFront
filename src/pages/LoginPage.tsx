@@ -13,9 +13,11 @@ import {
     Stack,
     Text,
     useColorModeValue,
+    useToast,
 } from "@chakra-ui/react";
 
 const LoginPage = () => {
+    const toast = useToast();
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -24,8 +26,15 @@ const LoginPage = () => {
             username: data.get("username") as string,
             password: data.get("password") as string,
         });
-        // eslint-disable-next-line no-restricted-globals
-        location.assign("/");
+        toast({
+            title: "Вы успешно вошли в аккаунт!",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+        });
+        setTimeout(() => {
+            window.location.replace("/");
+        }, 3200);
     };
     return (
         <div>
@@ -39,10 +48,10 @@ const LoginPage = () => {
                     <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                         <Stack align={"center"}>
                             <Heading fontSize={"4xl"}>
-                                Sign in to your account
+                                Войди в свой аккаунт
                             </Heading>
                             <Text fontSize={"lg"} color={"gray.600"}>
-                                to enjoy our website✌️
+                                ✌️
                             </Text>
                         </Stack>
                         <Box
@@ -74,7 +83,7 @@ const LoginPage = () => {
                                             as={ReachLink}
                                             to="/register"
                                         >
-                                            Do not have an account ?
+                                            Нету своего аккаунта ?
                                         </Link>
                                     </Stack>
                                     <Button
@@ -85,7 +94,7 @@ const LoginPage = () => {
                                         }}
                                         type="submit"
                                     >
-                                        Sign in
+                                        Логин
                                     </Button>
                                 </Stack>
                             </Stack>

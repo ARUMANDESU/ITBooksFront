@@ -11,10 +11,13 @@ import {
     Link,
     Stack,
     useColorModeValue,
+    useToast,
 } from "@chakra-ui/react";
-import { Link as ReachLink } from "react-router-dom";
+import { Link as ReachLink, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+    const navigation = useNavigate();
+    const toast = useToast();
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -24,8 +27,18 @@ const RegisterPage = () => {
             email: data.get("email") as string,
             password: data.get("password") as string,
         });
-        // eslint-disable-next-line no-restricted-globals
-        location.assign("/");
+
+        toast({
+            title: "Ваш аккаунт был создан!",
+            description:
+                "Прошу активировать свой аккаунт через ссылку которая находиться на почте",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+        });
+        setTimeout(() => {
+            window.location.replace("/login");
+        }, 9000);
     };
     return (
         <div>
@@ -39,7 +52,7 @@ const RegisterPage = () => {
                     <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                         <Stack align={"center"}>
                             <Heading fontSize={"4xl"}>
-                                {"  "}Create you account{"  "}
+                                {"  "}Создай свой аккаунт{"  "}
                             </Heading>
                         </Stack>
                         <Box
@@ -76,7 +89,7 @@ const RegisterPage = () => {
                                             as={ReachLink}
                                             to="/login"
                                         >
-                                            Already have an account ?
+                                            Уже есть аккаунт?
                                         </Link>
                                     </Stack>
                                     <Button
@@ -87,7 +100,7 @@ const RegisterPage = () => {
                                         }}
                                         type="submit"
                                     >
-                                        Sign up
+                                        Регистрация
                                     </Button>
                                 </Stack>
                             </Stack>

@@ -18,6 +18,10 @@ function ChevronDownIcon() {
 const AccountComp = () => {
     const user = userStore.user;
     const navigate = useNavigate();
+    function handleLogout() {
+        userStore.removeUser();
+        window.location.reload();
+    }
     function btnOnClick() {
         navigate("login");
     }
@@ -55,7 +59,7 @@ const AccountComp = () => {
                     <MenuItem>
                         <Link to={`/user/${user.username}`}>Account</Link>
                     </MenuItem>
-                    <MenuItem>Logout</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
             </Menu>
         </>
