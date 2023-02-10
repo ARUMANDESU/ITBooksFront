@@ -6,7 +6,7 @@ import { IBook } from "../models/types";
 const BookSearchComp = ({ book }: { book: IBook }) => {
     return (
         <Box>
-            <Link to={`/movie/${book._id}`}>
+            <Link to={`/book/${book._id}`}>
                 <HStack height="150px">
                     <Box width="60%" height="100%">
                         <Image
